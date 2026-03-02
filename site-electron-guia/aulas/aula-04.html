@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aula 04: Criando a Primeira Janela</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Aula 04: Criando a Primeira Janela</h1>
+    <p>Guia Electron.js — versão por aulas</p>
+  </header>
+
+  <main class="layout">
+    <aside class="sidebar" aria-label="Navegação das aulas">
+      <h2>Aulas</h2>
+      <input id="searchInput" type="search" placeholder="Filtrar aulas..." aria-label="Filtrar aulas" />
+      <nav>
+        <ul id="lessonList"></ul>
+      </nav>
+    </aside>
+
+    <section class="content" aria-live="polite">
+      <article class="article">
+        <div class="lesson-nav">
+          <a id="prevLink" class="btn" href="#">Anterior</a>
+          <a class="btn" href="index.html">Todas as aulas</a>
+          <a id="nextLink" class="btn" href="#">Próxima</a>
+        </div>
+        <div id="article"><p>Carregando conteúdo...</p></div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    window.ALL_LESSONS = [{"slug": "aula-02", "titulo": "Aula 02: Preparando o Ambiente"}, {"slug": "aula-03", "titulo": "Aula 03: Estrutura Inicial de um App Electron"}, {"slug": "aula-04", "titulo": "Aula 04: Criando a Primeira Janela"}, {"slug": "aula-05", "titulo": "Aula 05: Funcionamento do Electron"}, {"slug": "aula-06", "titulo": "Aula 06: Trabalhando com Janelas"}, {"slug": "aula-07", "titulo": "Aula 07: Gerenciando Energia"}, {"slug": "aula-08", "titulo": "Aula 08: Main e Renderer (Comunicação)"}, {"slug": "aula-09", "titulo": "Aula 09: API do Electron (Nativas)"}, {"slug": "aula-10", "titulo": "Aula 10: Projeto Prático"}, {"slug": "aula-11", "titulo": "Aula 11: App e Atalhos"}, {"slug": "aula-12", "titulo": "Aula 12: Menus e Barra de Tarefas"}, {"slug": "aula-13", "titulo": "Aula 13: Notifications e Requisições"}, {"slug": "aula-14", "titulo": "Aula 14: Distribuindo as Aplicações"}];
+    window.LESSON_META = {"slug": "aula-04", "titulo": "Aula 04: Criando a Primeira Janela"};
+  </script>
+  <script src="aula.js"></script>
+</body>
+</html>
