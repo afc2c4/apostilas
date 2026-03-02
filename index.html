@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal do Guia Electron</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: #121a31;
+      --text: #e9eefc;
+      --muted: #a6b2d8;
+      --line: #233057;
+      --primary: #7aa2ff;
+      --primary-soft: #1c2a52;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+
+    p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .grid {
+      margin-top: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+
+    .card p {
+      margin-bottom: 14px;
+      font-size: 0.95rem;
+    }
+
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid var(--line);
+      background: var(--primary-soft);
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: 0.92rem;
+    }
+
+    .btn:hover {
+      background: #25386d;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <h1>Portal do Guia Electron.js</h1>
+    <p>Acesso rápido ao conteúdo sem precisar informar manualmente o caminho do site interno.</p>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Versão completa (página única)</h2>
+        <p>Todo o guia em uma página com índice lateral e busca por tópicos.</p>
+        <a class="btn" href="site-electron-guia/index.html">Abrir conteúdo completo</a>
+      </article>
+
+      <article class="card">
+        <h2>Versão por aulas</h2>
+        <p>Navegação separada: uma página por aula, com botões anterior/próxima.</p>
+        <a class="btn" href="site-electron-guia/aulas/index.html">Abrir versão por aulas</a>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
