@@ -143,6 +143,10 @@ app.on('window-all-closed', () => {
   }
 });
 ```
+**Atenção:** 
+
+Cuidado com a digitação da função openDevTools(). 
+O "s" no final é obrigatório, caso contrário o Node.js lançará um erro do tipo "not a function".
 
 **Explicação do Código:**
 
@@ -155,26 +159,23 @@ app.on('window-all-closed', () => {
 - `app.whenReady()` - Aguarda o Electron estar pronto antes de criar a janela
 - `app.on('activate')` - Evento específico do macOS para recriar a janela quando o ícone é clicado
 
+
 #### Passo 4: Criar o Preload Script
 
 Crie o arquivo `src/main/preload.js`:
 
 ```javascript
+// src/main/preload.js
 // Este arquivo roda antes da página web ser carregada
-// Ele tem acesso ao Node.js e pode expor APIs específicas para a página web
+// Ele tem acesso ao Node.js e atua como uma ponte segura
 
-const { contextBridge, ipcRenderer } = require('electron');
+const { contextBridge } = require('electron');
 
-// Expor uma API controlada para a página web
-contextBridge.exposeInMainWorld('api', {
-  // Função para enviar mensagens para o Main Process
-  send: (channel, data) => {
-    ipcRenderer.send(channel, data);
-  },
-  // Função para receber mensagens do Main Process
-  receive: (channel, func) => {
-    ipcRenderer.on(channel, (event, ...args) => func(...args));
-  }
+// Expor variáveis do sistema de forma segura para o Renderer Process
+contextBridge.exposeInMainWorld('versoes', {
+  node: () => process.versions.node,
+  chrome: () => process.versions.chrome,
+  electron: () => process.versions.electron
 });
 ```
 
@@ -262,14 +263,14 @@ span {
 Crie o arquivo `src/renderer/app.js`:
 
 ```javascript
-// Este arquivo roda no Renderer Process (dentro da janela)
+// src/renderer/app.js
+// Este arquivo roda no Renderer Process (dentro da janela do navegador)
 
-// Aguardar o DOM estar completamente carregado
 document.addEventListener('DOMContentLoaded', () => {
-  // Exibir as versões dos componentes
-  document.getElementById('node-version').textContent = process.versions.node;
-  document.getElementById('chrome-version').textContent = process.versions.chrome;
-  document.getElementById('electron-version').textContent = process.versions.electron;
+  // Acessamos as informações através da ponte segura 'window.versoes' criada no preload.js
+  document.getElementById('node-version').textContent = window.versoes.node();
+  document.getElementById('chrome-version').textContent = window.versoes.chrome();
+  document.getElementById('electron-version').textContent = window.versoes.electron();
 });
 ```
 
