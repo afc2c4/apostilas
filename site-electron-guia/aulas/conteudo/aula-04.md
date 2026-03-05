@@ -42,7 +42,7 @@ function createWindow() {
     minWidth: 800,                    // Largura mínima
     minHeight: 600,                   // Altura mínima
     show: false,                      // Não mostrar até estar pronto
-    icon: path.join(__dirname, '../assets/icon.png'),  // Ícone da janela
+    icon: path.join(__dirname, '../assets/janela.png'),  // Ícone da janela
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
@@ -354,9 +354,9 @@ Modifique `src/renderer/app.js`:
 
 document.addEventListener('DOMContentLoaded', () => {
   // Exibir as versões
-  document.getElementById('node-version').textContent = process.versions.node;
-  document.getElementById('chrome-version').textContent = process.versions.chrome;
-  document.getElementById('electron-version').textContent = process.versions.electron;
+  document.getElementById('node-version').textContent = window.versions?.node ?? 'indisponivel';
+  document.getElementById('chrome-version').textContent = window.versions?.chrome ?? 'indisponivel';
+  document.getElementById('electron-version').textContent = window.versions?.electron ?? 'indisponivel';
 
   // Configurar os botões
   setupButtons();
@@ -402,6 +402,12 @@ Modifique `src/main/preload.js`:
 ```javascript
 const { contextBridge, ipcRenderer } = require('electron');
 
+contextBridge.exposeInMainWorld('versions', {
+  node: process.versions.node,
+  chrome: process.versions.chrome,
+  electron: process.versions.electron
+});
+
 contextBridge.exposeInMainWorld('api', {
   send: (channel, data) => {
     // Apenas permitir canais específicos
@@ -432,7 +438,7 @@ let mainWindow;
 // ... (código anterior do menu e createWindow)
 
 // Ouvir mensagens do Renderer Process
-ipcMain.on('window-action', (event, args) => {
+ipcMain.on('window-action', (_event, args) => {
   if (!mainWindow) return;
 
   switch (args.action) {
@@ -444,6 +450,8 @@ ipcMain.on('window-action', (event, args) => {
       break;
     case 'fullscreen':
       mainWindow.setFullScreen(!mainWindow.isFullScreen());
+      break;
+    default:
       break;
   }
 });
